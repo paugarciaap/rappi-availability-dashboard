@@ -1,3 +1,102 @@
+## 🚀 Cómo ejecutar el proyecto
+
+Para correr la aplicación correctamente, sigue estos pasos:
+
+---
+
+## 1. Requisitos
+
+Asegúrate de tener instalado:
+
+- Python 3  
+- pip  
+- Ollama  
+
+Puedes verificar Python con:
+
+python3 --version  
+
+---
+
+## 2. Clonar el repositorio
+
+git clone TU_REPO  
+cd TU_REPO  
+
+---
+
+## 3. Instalar dependencias
+
+python3 -m pip install -r requirements.txt  
+
+---
+
+## 4. Ejecutar el modelo de IA (Ollama)
+
+En una terminal aparte, ejecuta:
+
+ollama run qwen2.5:3b  
+
+⚠️ Este paso es obligatorio para que funcione el chatbot.
+
+---
+
+## 5. Levantar el backend
+
+En otra terminal:
+
+python3 server.py  
+
+Deberías ver algo como:
+
+Running on http://127.0.0.1:8000  
+
+---
+
+## 6. Abrir la aplicación
+
+Abre tu navegador y entra a:
+
+http://127.0.0.1:8000  
+
+---
+
+## 7. Verificar funcionamiento
+
+Una vez dentro de la app puedes:
+
+- navegar entre Dashboard, Comparación e Insights  
+- interactuar con las gráficas  
+- usar filtros de fechas  
+- probar el chatbot con preguntas operativas  
+
+---
+
+## Posibles problemas
+
+### El chatbot no responde
+
+Asegúrate de que Ollama esté corriendo:
+
+ollama run qwen2.5:3b  
+
+---
+
+### La app no carga
+
+Verifica que el backend esté activo:
+
+python3 server.py  
+
+---
+
+### No se ven gráficos
+
+- revisa la consola del navegador  
+- revisa errores en la terminal del backend  
+
+---
+
 # Avail Intelligence  
 ### Dashboard con IA para entender la disponibilidad y la salud del marketplace
 
