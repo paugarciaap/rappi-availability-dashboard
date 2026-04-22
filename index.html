@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avail - Rappi Store Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand">
+      <div class="nav-logo-mark"></div>
+      <div class="nav-wordmark">avail<span>.</span></div>
+    </div>
+    <div class="nav-links">
+      <button class="nav-link active" data-scroll-target="overview" id="nav-overview" type="button">Resumen</button>
+      <button class="nav-link" data-scroll-target="dashboard" id="nav-dashboard" type="button">Dashboard</button>
+      <button class="nav-link" data-scroll-target="comparison" id="nav-comparison" type="button">Comparación</button>
+      <button class="nav-link" data-scroll-target="insights" id="nav-insights" type="button">Insights</button>
+      <button class="nav-link" data-scroll-target="assistant" id="nav-chat" type="button">Asistente</button>
+    </div>
+    <div class="nav-controls">
+      <button class="nav-btn nav-btn-primary" id="report-btn" data-download-report type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 3v12"></path>
+          <path d="M7 10l5 5 5-5"></path>
+          <path d="M5 21h14"></path>
+        </svg>
+        <span id="report-btn-label">Descargar informe</span>
+      </button>
+      <button class="nav-btn" id="lang-btn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"></path>
+        </svg>
+        <span id="lang-label">EN</span>
+      </button>
+      <button class="nav-btn" id="theme-btn" type="button">
+        <svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"></circle>
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <section id="overview">
+    <div class="hero-bg">
+      <div class="hero-grid"></div>
+      <div class="hero-orb hero-orb-1"></div>
+      <div class="hero-orb hero-orb-2"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-dot"></div>
+        <span id="hero-eyebrow-text">Inteligencia Operativa · Rappi</span>
+      </div>
+      <h1 class="hero-title" id="hero-title">Entiende tu operación.<br>En <span class="hero-title-accent">tiempo real.</span></h1>
+      <p class="hero-sub" id="hero-sub">Analiza la disponibilidad de tiendas, identifica ventanas críticas y toma decisiones informadas con datos históricos reales.</p>
+      <div class="hero-ctas">
+        <button class="btn-primary" data-scroll-target="dashboard" id="hero-cta1" type="button">Ver dashboard</button>
+        <button class="btn-secondary" data-scroll-target="assistant" id="hero-cta2" type="button">Preguntar al asistente</button>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-val" data-count-to="67141" data-count-format="compact-split">67<span>K</span></div>
+          <div class="hero-stat-label" id="stat-obs">Observaciones</div>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <div class="hero-stat-val" data-count-to="10" data-count-format="suffix" data-count-suffix="d">10<span>d</span></div>
+          <div class="hero-stat-label" id="stat-period">Período analizado</div>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <div class="hero-stat-val"><span>#</span>1</div>
+          <div class="hero-stat-label" id="stat-metric">Métrica clave</div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <div class="scroll-hint-line"></div>
+      <span id="scroll-hint-text">Explora</span>
+    </div>
+  </section>
+
+  <section id="dashboard">
+    <hr class="section-divider">
+    <div class="section">
+      <div class="section-header">
+        <div class="section-label" id="dash-label">Análisis de datos</div>
+        <h2 class="section-title" id="dash-title">Disponibilidad agregada de tiendas</h2>
+        <p class="section-desc" id="dash-desc">Vista completa del comportamiento operativo durante el período Feb 1-11, 2026.</p>
+      </div>
+
+      <div class="filters-shell" id="filters-shell">
+        <div class="filters-shell-head">
+          <div>
+            <div class="filters-kicker" id="filters-label">Filtro global</div>
+            <div class="filters-title" id="filters-title">Explora el rango que quieras</div>
+            <p class="filters-desc" id="filters-desc">Ajusta fechas y la app recalcula KPIs, tendencias, caídas y comparación sin salir de la vista.</p>
+          </div>
+          <div class="filters-range-summary" id="filters-range-summary" aria-live="polite">Cargando rango...</div>
+        </div>
+
+        <div class="filters-controls">
+          <label class="filter-field" for="date-start-input">
+            <span class="filter-label" id="date-start-label">Fecha de inicio</span>
+            <input class="filter-input" id="date-start-input" type="date">
+          </label>
+
+          <label class="filter-field" for="date-end-input">
+            <span class="filter-label" id="date-end-label">Fecha de fin</span>
+            <input class="filter-input" id="date-end-input" type="date">
+          </label>
+        </div>
+
+        <div class="quick-filters-row">
+          <div class="quick-filters-label" id="quick-filters-label">Atajos de tiempo</div>
+          <div class="quick-filters" id="quick-filters"></div>
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card featured">
+          <div class="kpi-label" id="kpi1-label">Pico máximo registrado</div>
+          <div class="kpi-val" id="kpi1-val" data-count-to="6200000" data-count-format="compact">6.2M</div>
+          <div class="kpi-sub" id="kpi1-sub">Feb 6, ventana 15:00-17:00</div>
+          <div class="kpi-badge" id="kpi1-badge">Semana 2 &gt; Semana 1 (+17.4%)</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label" id="kpi2-label">Promedio global</div>
+          <div class="kpi-val" id="kpi2-val" data-count-to="3210000" data-count-format="compact">3.21M</div>
+          <div class="kpi-sub" id="kpi2-sub">67,141 observaciones totales</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label" id="kpi3-label">Hora pico de operación</div>
+          <div class="kpi-val" id="kpi3-val" data-count-to="17" data-count-format="time">17:00</div>
+          <div class="kpi-sub" id="kpi3-sub">Promedio más alto del día</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label" id="kpi4-label">Día más fuerte</div>
+          <div class="kpi-val" id="kpi4-val">Viernes</div>
+          <div class="kpi-sub" id="kpi4-sub">Lunes es el más débil</div>
+        </div>
+      </div>
+
+      <div class="chart-card mt-4">
+        <div class="chart-card-header">
+          <div>
+            <div class="chart-card-title" id="chart1-title">Serie temporal completa</div>
+            <div class="chart-card-sub" id="chart1-sub">Feb 1-11 · Resolución 10 minutos</div>
+          </div>
+          <div class="chart-card-badge" id="chart1-badge">Tendencia alcista</div>
+        </div>
+        <div class="chart-wrap chart-wrap-lg">
+          <canvas id="chartTimeseries"></canvas>
+        </div>
+      </div>
+
+      <div class="chart-grid chart-grid-2 mt-4">
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <div>
+              <div class="chart-card-title" id="chart2-title">Distribución por hora del día</div>
+              <div class="chart-card-sub" id="chart2-sub">Promedio agregado · Horas 0-23</div>
+            </div>
+          </div>
+          <div class="chart-wrap chart-wrap-sm">
+            <canvas id="chartHourly"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <div>
+              <div class="chart-card-title" id="chart3-title">Rendimiento por día de semana</div>
+              <div class="chart-card-sub" id="chart3-sub">Promedio por día · Feb 1-11</div>
+            </div>
+          </div>
+          <div class="chart-wrap chart-wrap-sm">
+            <canvas id="chartDow"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-card mt-4">
+        <div class="chart-card-header">
+          <div>
+            <div class="chart-card-title" id="drops-title">Caídas críticas detectadas</div>
+            <div class="chart-card-sub" id="drops-sub">Drops de disponibilidad en ventanas de 5 minutos</div>
+          </div>
+          <div class="chart-card-badge" id="drops-badge">6 eventos</div>
+        </div>
+        <div class="table-scroll">
+          <table class="drops-table" id="drops-table"></table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="comparison">
+    <hr class="section-divider">
+    <div class="section section-comparison">
+      <div class="section-header section-header-split">
+        <div>
+          <div class="section-label" id="compare-label">Comparación de comportamiento</div>
+          <h2 class="section-title" id="compare-title">Cómo se comporta el mejor día frente al más frágil</h2>
+          <p class="section-desc" id="compare-desc">Mira la brecha operativa en la misma escala para detectar dónde se pierde tracción y qué decisiones conviene priorizar primero.</p>
+        </div>
+        <div class="section-chip" id="compare-badge">Misma escala · Lectura comparable</div>
+      </div>
+
+      <div class="comparison-story">
+        <div class="comparison-story-copy">
+          <p class="comparison-summary" id="comparison-summary">Cargando comparación de comportamiento...</p>
+          <p class="comparison-caption" id="comparison-caption">Usa esta vista para entender dónde el día más débil empieza a ceder y cuánto margen te da el referente más sólido.</p>
+        </div>
+      </div>
+
+      <div class="comparison-controls">
+        <label class="filter-field filter-field-compact" for="compare-day-a">
+          <span class="filter-label" id="compare-select-a-label">Día A</span>
+          <select class="filter-select" id="compare-day-a"></select>
+        </label>
+
+        <label class="filter-field filter-field-compact" for="compare-day-b">
+          <span class="filter-label" id="compare-select-b-label">Día B</span>
+          <select class="filter-select" id="compare-day-b"></select>
+        </label>
+      </div>
+
+      <div class="comparison-grid">
+        <article class="comparison-card">
+          <div class="comparison-card-head">
+            <div class="comparison-card-title" id="compare-weak-title">Día A</div>
+            <div class="comparison-card-sub" id="compare-weak-sub">Promedio horario</div>
+          </div>
+          <div class="comparison-plot" id="comparisonWeakPlot"></div>
+        </article>
+
+        <article class="comparison-card comparison-card-strong">
+          <div class="comparison-card-head">
+            <div class="comparison-card-title" id="compare-strong-title">Día B</div>
+            <div class="comparison-card-sub" id="compare-strong-sub">Promedio horario</div>
+          </div>
+          <div class="comparison-plot" id="comparisonStrongPlot"></div>
+        </article>
+      </div>
+
+      <div class="comparison-footnote" id="compare-footnote">La comparación usa la misma escala y estilo visual para que la diferencia sea clara, no decorativa.</div>
+    </div>
+  </section>
+
+  <section id="insights">
+    <hr class="section-divider">
+    <div class="section">
+      <div class="section-header">
+        <div class="section-label" id="insights-label">Diagnóstico ejecutivo</div>
+        <h2 class="section-title" id="insights-title">Lo que dicen los datos</h2>
+        <p class="section-desc" id="insights-desc">Patrones relevantes para operaciones, CX y negocio.</p>
+      </div>
+      <div class="insights-grid" id="insights-grid"></div>
+    </div>
+  </section>
+
+  <section id="assistant">
+    <div class="chat-wrapper">
+      <div class="chat-sidebar">
+        <div class="section-label" id="chat-label">Asistente local</div>
+        <h2 class="chat-sidebar-title" id="chat-title">Pregunta sobre la operación</h2>
+        <p class="chat-sidebar-sub" id="chat-sub">Haz preguntas sobre disponibilidad y recibe respuestas desde Ollama local.</p>
+        <div class="suggested-label" id="suggested-label">Preguntas frecuentes</div>
+        <div class="suggested-list" id="suggested-list"></div>
+      </div>
+      <div class="chat-main">
+        <div class="chat-header">
+          <div class="chat-header-dot"></div>
+          <div class="chat-header-title" id="chat-header-title">Avail Intelligence</div>
+          <div class="chat-header-sub" id="chat-header-sub">Local · Ollama qwen2.5:3b</div>
+        </div>
+        <div class="chat-messages" id="chat-messages"></div>
+        <div class="chat-input-area">
+          <textarea class="chat-input" id="chat-input" rows="1" placeholder="¿Qué quieres saber sobre la operación?"></textarea>
+          <button class="chat-send" id="chat-send" type="button" aria-label="Enviar mensaje" title="Enviar mensaje">
+            <svg viewBox="0 0 24 24">
+              <path d="M22 2L11 13M22 2L15 22 11 13 2 9l20-7z"></path>
+            </svg>
+          </button>
+        </div>
+        <div class="chat-note" id="chat-note">Responde en tu idioma · Modelo local qwen2.5:3b</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p id="footer-text">Avail - Prueba técnica <span>Rappi</span> · Datos: Feb 1-11, 2026 · Construido con criterio de producto</p>
+  </footer>
+
+  <script src="js/chatbot.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
