@@ -215,7 +215,7 @@ Backend (Flask)
 Procesamiento de datos + contexto
   ↓
 Modelo local (Ollama)
-
+```
 ## 7. Flujo del sistema
 
 ### Dashboard
